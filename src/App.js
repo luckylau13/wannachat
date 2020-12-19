@@ -6,6 +6,7 @@ import 'firebase/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import './App.css'
 
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -46,21 +47,20 @@ function SignIn() {
     auth.signInWithPopup(provider);
   }
   return (
-    <div className="flex flex-col h-screen items-center justify-center">
-      <button className="mt-auto bg-white outline-none focus:outline-none p-2 m-3 border-b-4 border-gray-500 hover:bg-gray-200 hover:border-gray-500 transition-all duration-75 ease-in-out rounded inline-flex items-center" onClick={signInWithGoogle}>
+    <div>
+      <button onClick={signInWithGoogle}>
         <img className="w-5 mr-2 block" src={process.env.PUBLIC_URL + '/google-icon.svg'} alt='Google Icon' />
         <span className="block">Sign In With Google</span>
       </button>
-      <p className="text-white text-opacity-50 text-center hover:text-opacity-100 text-sm">'cause I was too lazy to set up a better auth system </p>
-      <p className="justify-self-end mt-auto text-white text-center text-opacity-50 hover:text-opacity-100">Made by <a className="hover:text-yellow-500" href="https://github.com/volt9801">⚡volt9801</a> w/ inspiration from <a className="hover:text-red-500" href="https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA">🔥Fireship</a></p>
+      
     </div>
   )
 }
 
 function SignOut() {
   return auth.currentUser && (
-    <div className="w-full">
-      <button className="absolute hover:shadow-xl hover:text-pink-900 transition-all duration-75 ease-in-out rounded-full p-2 bg-white signout-btn material-icons" onClick={() => auth.signOut()}>exit_to_app</button>
+    <div>
+      <button onClick={() => auth.signOut()}>exit_to_app</button>
     </div>
   )
 }
@@ -97,14 +97,14 @@ function ChatRoom() {
   }
 
   return (
-    <div className="chat-bg w-full sm:w-2/3 p-2 rounded">
-      <div className="overflow-y-auto h-screen-90">
+    <div>
+      <div>
         {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
         <span ref={dummy}></span>
       </div>
 
-      <form onSubmit={sendMessage} className="pt-3 w-full inline-flex">
-        <input className="rounded-3xl px-3 w-full py-1 outline-none focus:shadow" value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Say something" />
+      <form onSubmit={sendMessage}>
+        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Say something" />
         <button className={`material-icons p-2 mx-2 bg-white rounded-full transition-all duration-75 ease-in-out text-xl ${!formValue || 'text-pink-700 hover:text-pink-900'}`} type="submit" disabled={!formValue}>send</button>
       </form>
     </div>
